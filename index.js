@@ -11,14 +11,17 @@ const app = express();
 conectarDB();
 
 // Habilitar cors
+app.use(cors({ credentials: true, origin: true }));
 
-app.use(cors());
+//habilitar cors
+app.options("*", cors());
 
 // Habilitar express.json
 app.use(express.json({ extended: true }));
 
-// Puerto de la app
-const port = process.env.port || 4000;
+//PUERTO DE LA APP
+const port = process.env.PORT || 4000;
+
 
 // Importar rutas
 app.use('/api/usuarios', require('./routes/usuarios'));
