@@ -29,7 +29,7 @@ exports.crearProyecto = async (req, res) => {
 
 exports.obtenerProyecto = async (req, res) => {
     try {
-        const proyectos = await Proyecto.find({ creador: req.usuario.id }).sort({ creado: -1 });
+        const proyectos = await Proyecto.find({}).sort({ creado: -1 });
         res.json({ proyectos });
     } catch (error) {
         console.log(error);
