@@ -168,13 +168,12 @@ exports.subirArchivo = async (req, res) => {
 
 // Borrar archivos de tareas en el servidor
 exports.borrarArchivo = async (req, res) => {
-    console.log(req);
-    // const path = req.params.path;
-    // fs.unlink(path, (err) => {
-    //     if (err) {
-    //         console.error(err)
-    //     }
-    // })
+    const path = req.query.file;
+    fs.unlink(path, (err) => {
+        if (err) {
+            console.error(err)
+        }
+    })
     console.log('Se ha borrado el archivo exitosamente');
 }
 
