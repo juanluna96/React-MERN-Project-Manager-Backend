@@ -11,6 +11,7 @@ const app = express();
 conectarDB();
 
 // Habilitar cors
+
 app.use(cors({ credentials: true, origin: true }));
 
 //habilitar cors
@@ -21,7 +22,6 @@ app.use(express.json({ extended: true }));
 
 //PUERTO DE LA APP
 const port = process.env.PORT || 4000;
-
 
 // Importar rutas
 app.use('/api/usuarios', require('./routes/usuarios'));

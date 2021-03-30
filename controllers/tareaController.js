@@ -1,5 +1,7 @@
 const Tarea = require('../models/Tarea')
 const Proyecto = require('../models/Proyecto');
+const fs = require('fs');
+const path = require("path");
 const { validationResult } = require('express-validator');
 
 // Crea una nueva tarea
@@ -128,12 +130,60 @@ exports.eliminarTarea = async (req, res) => {
             return res.status(401).json({ msg: 'No autorizado' })
         }
 
+        // Elimina el archivo si tiene
+        if (tareaExiste.archivo.trim() !== '') {
+            const path = tareaExiste.archivo;
+            fs.unlink(path, (err) => {
+                if (err) {
+                    console.error(err)
+                }
+            });
+        }
+
         // Elimina la tarea
-        await Tarea.findOneAndRemove({ _id: req.params.id })
+        await Tarea.findOneAndRemove({ _id: req.params.id });
 
         res.json({ msg: 'Tarea eliminada' });
     } catch (error) {
         console.log(error);
         return res.status(500).send('Hubo un error al eliminar la tarea');
+    }
+}
+
+// Subir archivos de tareas al servidor
+
+exports.subirArchivo = async (req, res) => {
+    try {
+        const name_file = req.file.path + '.' + req.file.mimetype.split('/')[1];
+        fs.renameSync(req.file.path, name_file);
+        req.file.fileName = name_file;
+        const { file } = req;
+        res.send(file);
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send('Hubo un error al subir el archivo la tarea');
+    }
+
+}
+
+// Borrar archivos de tareas en el servidor
+exports.borrarArchivo = async (req, res) => {
+    const path = req.params.path;
+    fs.unlink(path, (err) => {
+        if (err) {
+            console.error(err)
+        }
+    })
+    console.log('Se ha borrado el archivo exitosamente');
+}
+
+// Descargar archivo de cierta tarea
+exports.descargarArchivo = async (req, res) => {
+    try {
+        const file = path.join(__dirname, '..', req.query.archivo);
+        res.download(file);
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send('Hubo un error al subir el archivo la tarea');
     }
 }
