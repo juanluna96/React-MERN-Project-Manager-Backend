@@ -27,7 +27,7 @@ router.delete('/:id', auth, tareaController.eliminarTarea);
 router.post('/archivos', upload.single('files'), tareaController.subirArchivo)
 
 // Subir archivos tareas
-router.delete('/delete_file', tareaController.borrarArchivo);
+router.get('/delete_file', tareaController.borrarArchivo);
 
 // Descargar archivo del servidor
 router.get('/download_file', tareaController.descargarArchivo)
