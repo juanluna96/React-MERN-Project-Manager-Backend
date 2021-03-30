@@ -56,7 +56,7 @@ exports.obtenerTareas = async (req, res) => {
         }
 
         // Obtener las tareas por proyectos
-        const tareas = await Tarea.find({ proyecto }).sort({ creado: -1, estado: 1 });
+        const tareas = await Tarea.find({ proyecto }).sort({ estado: 1, creado: -1 });
 
         res.json({ tareas });
 
