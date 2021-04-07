@@ -113,12 +113,12 @@ exports.eliminarTarea = async (req, res) => {
     // Extraer el proyecto y comprobar si existe
     const { proyecto } = req.query;
     console.log(req.query);
-    console.log(tareaExiste);
 
     try {
 
         // Si la tarea existe
         const tareaExiste = await Tarea.findById(req.params.id);
+        console.log(tareaExiste);
 
         if (!tareaExiste) {
             return res.status(404).json({ msg: 'No existe la tarea' })
