@@ -112,6 +112,8 @@ exports.actualizarTarea = async (req, res) => {
 exports.eliminarTarea = async (req, res) => {
     // Extraer el proyecto y comprobar si existe
     const { proyecto } = req.query;
+    console.log(req.query);
+    console.log(tareaExiste);
 
     try {
 
@@ -131,7 +133,7 @@ exports.eliminarTarea = async (req, res) => {
         }
 
         // Elimina el archivo si tiene
-        if (tareaExiste.archivo.trim() !== '') {
+        if (tareaExiste.archivo !== '') {
             const path = tareaExiste.archivo;
             fs.unlink(path, (err) => {
                 if (err) {
