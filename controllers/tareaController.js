@@ -133,7 +133,7 @@ exports.eliminarTarea = async (req, res) => {
         }
 
         // Elimina el archivo si tiene
-        if (tareaExiste.archivo !== '') {
+        if (tareaExiste.archivo !== '' && tareaExiste.archivo !== undefined) {
             const path = tareaExiste.archivo;
             fs.unlink(path, (err) => {
                 if (err) {
