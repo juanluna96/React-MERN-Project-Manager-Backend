@@ -19,6 +19,10 @@ const tareaSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    cierre: {
+        type: Date,
+        required: true
+    },
     proyecto: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Proyecto'
